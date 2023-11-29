@@ -11,7 +11,7 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 """
 
 from pathlib import Path
-
+import os
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -27,6 +27,27 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
+
+# STATIC FILES CONFIGURATIONS
+
+STATIC_URL = '/static/'
+
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+""" 
+app/
+    ├── static/
+    │   ├── app_name/
+    │   │   ├── css/
+    │   │   │   └── styles.css
+    │   │   ├── js/
+    │   │   │   └── script.js
+    │   │   └── images/
+    │   │       └── profile_image.png
+    │   └── ...
+    └── ...
+
+
+"""
 
 # Application definition
 
