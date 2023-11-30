@@ -30,8 +30,6 @@ admin.site.register(User, UserAdmin)
 # Mix profile info to user info
 
 
-class ProfileInline(admin.StackedInline):
-    model = Profile
 
 
 
