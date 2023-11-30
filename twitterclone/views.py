@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.contrib import messages
 from .models import *
 
@@ -16,3 +16,13 @@ def profile_list(request):
     else:
         messages.success(request, ("You have to log in"))
         return render(request, 'home.html', {})
+
+
+
+def profile(request, pk):
+    if request.user.is_authenticated:
+        profiles = Profile.objects.get(user_id=pk)
+        return render(request, 'profile.html', {'profiles':profiles})
+    else:
+        messages.success(request, ("You have to log in"))
+        return redirect(home)
