@@ -6,7 +6,10 @@ from .models import *
 
 
 def home(request):
-    return render(request, 'home.html', {})
+    if request.user.is_authenticated:
+        meeps = Meep.objects.all().order_by("-created_at")
+    
+    return render(request, 'home.html', {'meeps':meeps})
 
 def profile_list(request): 
     if request.user.is_authenticated:
@@ -21,8 +24,25 @@ def profile_list(request):
 
 def profile(request, pk):
     if request.user.is_authenticated:
-        profiles = Profile.objects.get(user_id=pk)
-        return render(request, 'profile.html', {'profiles':profiles})
+        profile = Profile.objects.get(user_id=pk)
+        meeps = Meep.objects.filter(user_id=pk)
+        
+
+        # POST form method
+        if request.method == "POST":
+            # Get current user
+            current_user_profile = request.user.profile
+            # Ger from data
+            action = request.POST['follow']
+            # Decide to follow or unfollow
+            if action  == "unfollow":
+                current_user_profile.follows.remove(profile)
+            else:
+                current_user_profile.follows.add(profile)
+            # Save the changes
+            current_user_profile.save()
+
+        return render(request, 'profile.html', {'profile':profile, 'meeps':meeps})
     else:
         messages.success(request, ("You have to log in"))
         return redirect(home)

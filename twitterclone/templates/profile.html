@@ -5,7 +5,7 @@
 
 
 
-{% if profiles %}
+{% if profile %}
 
 
 <div class="container text-center">
@@ -14,7 +14,19 @@
 
 		<div class="col-8">
 
-			<h1>{{ profiles.user.username }}'s Profile</h1>
+			<h1>{{ profile.user.username }}'s Profile</h1>
+			<br/>
+			{% if meeps %}
+				{% for meeps in meeps %}
+ 
+					<div class="alert alert-info" role="alert">
+
+    				{{meeps}} <br/> <br/>
+  				</div>
+				 
+				{% endfor %}
+			{% endif %}
+
 		</div>
 
 		<div class="col-4">
@@ -24,7 +36,7 @@
   			<h5 class="card-header">Follows</h5>
   				<div class="card-body">
     				<p class="card-text">
-    					{% for following in profiles.follows.all %}
+    					{% for following in profile.follows.all %}
 		 				<a href="{% url 'profile' following.user.id %}"> @{{ following }}</a><br/>
 
 
@@ -38,7 +50,7 @@
   			<h5 class="card-header">Followed by</h5>
   				<div class="card-body">
     				<p class="card-text">
-    							{% for following in profiles.followed_by.all %}
+    							{% for following in profile.followed_by.all %}
 			
 								<a href="{% url 'profile' following.user.id %}"> @{{ following }}</a><br/>
 
@@ -47,6 +59,21 @@
    					 </p>
     			 </div>
 		</div>
+		<br/>
+	<!-- 	Follow and unfollow button section -->
+
+		<form method="POST">
+			{% csrf_token %}
+			{% if profile in user.profile.follows.all %}
+				<button class="btn btn-outline-danger" name="follow" value="unfollow"  type="submit" >Unfollow @{{ profile.user.username | lower}}
+				</button>
+
+			{% else %}
+				<button class="btn btn-outline-success" name="follow" value="follow"  type="submit" >Follow @{{ profile.user.username | lower}}
+				</button>
+			{% endif %}
+		</form>
+		<br/>
 		</div>
 	</div>
 </div>
