@@ -9,9 +9,9 @@ urlpatterns = [
     #profile url
     path('profile/<int:pk>', views.profile, name="profile"),
     
-    # path(),
+    path('login', views.login_user, name='login'),
     
-    # path(),
+    path('logout', views.logout_user, name='logout'),
     
     # path(),
     

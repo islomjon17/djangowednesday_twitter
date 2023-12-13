@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect
 from django.contrib import messages
 from .models import *
 from .forms import MeepForm
-
+from django.contrib.auth import authenticate, login, logout
 # Create your views here.
 
 
@@ -58,3 +58,13 @@ def profile(request, pk):
     else:
         messages.success(request, ("You have to log in"))
         return redirect(home)
+    
+    
+    
+def login_user(request):
+    return render(request, 'login.html', {})
+
+
+    
+def logout_user(request):
+    return render(logout_user, 'logout_user.html', {})
