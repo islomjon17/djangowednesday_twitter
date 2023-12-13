@@ -14,10 +14,11 @@ def home(request):
                 meep = form.save(commit=False)
                 meep.user = request.user
                 meep.save()
+                messages.success(request, ("Yout meep has been posted!"))
                 return redirect('home') 
         
         meeps = Meep.objects.all().order_by("-created_at")
-        return render(request, 'home.html', {'meeps':meeps})
+        return render(request, 'home.html', {'meeps':meeps, 'form':form})
     else:
         meeps = Meep.objects.all().order_by("-created_at")
         return render(request, 'home.html', {'meeps':meeps})

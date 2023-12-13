@@ -20,8 +20,15 @@
 				{% for meeps in meeps %}
  
 					<div class="alert alert-info" role="alert">
+						
+    			{{ meeps.body }} </br>
+    				<small class="text-muted">
+      				({{ meeps.created_at }}) By
 
-    				{{meeps}} <br/> <br/>
+     				 @{{ meeps.user.username }}
+    			</small>
+						
+						 <br/> <br/>
   				</div>
 				 
 				{% endfor %}
