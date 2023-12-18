@@ -65,11 +65,14 @@ def login_user(request):
     if request.method == "POST":
         username = request.POST['username']
         password = request.POST['password']
-    
-    
-    return render(request, 'login.html', {})
-
-
+        user = authenticate(request, username=username, password=password)
+        if user is not None:
+            login(request, user)
+            messages.success(request, ("You have been loged in"))
+            return redirect(home)
+    else:
+        messages.success(request, ("Error, Please try again!"))
+        return render(request, 'login.html', {})    
     
 def logout_user(request):
     return render(logout_user, 'logout_user.html', {})
