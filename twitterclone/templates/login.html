@@ -2,13 +2,13 @@
 
 
 {% block content %}
-<<<<<<< HEAD
+
 
 {% if user.is_authernticed %}
 <h1> You're Already Logged In </h1>
 {% else %}
-=======
->>>>>>> b47958f47ad97dec5218aa1f6ce496471e9c70be
+
+
 <div class= "col-md-6 offset-md-3"> 
 <h1> Login in</h1>
 <form method="POST", action="{%  url 'login' %}">;
@@ -27,8 +27,6 @@
     <button type="submit" class="btn btn-primary">Submit</button>
   </form>
 </div>
-<<<<<<< HEAD
 {% endif %}
-=======
->>>>>>> b47958f47ad97dec5218aa1f6ce496471e9c70be
+
 {%endblock%}

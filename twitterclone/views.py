@@ -3,6 +3,12 @@ from django.contrib import messages
 from .models import *
 from .forms import MeepForm
 from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth.forms import UserCreationForm
+from django import forms
+
+
+
+
 # Create your views here.
 
 
@@ -65,7 +71,7 @@ def login_user(request):
     if request.method == "POST":
         username = request.POST['username']
         password = request.POST['password']
-<<<<<<< HEAD
+
         user = authenticate(request, username=username, password=password)
         if user is not None:
             login(request, user)
@@ -73,14 +79,16 @@ def login_user(request):
             return redirect(home)
     else:
         messages.success(request, ("Error, Please try again!"))
-        return render(request, 'login.html', {})
-=======
-    
-    
+        return render(request, 'login.html', {})   
     return render(request, 'login.html', {})
->>>>>>> b47958f47ad97dec5218aa1f6ce496471e9c70be
+
 
 
     
 def logout_user(request):
     return render(logout_user, 'logout_user.html', {})
+
+
+
+def register_user(request):
+    return render(request, 'register.html', {})
