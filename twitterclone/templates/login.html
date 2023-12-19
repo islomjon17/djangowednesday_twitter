@@ -4,10 +4,13 @@
 {% block content %}
 
 
+
 {% if user.is_authernticed %}
 <h1> You're Already Logged In </h1>
 {% else %}
-
+{% if user.is_authernticed %}
+<h1> You're Already Logged In </h1>
+{% else %}
 
 <div class= "col-md-6 offset-md-3"> 
 <h1> Login in</h1>
@@ -28,5 +31,6 @@
   </form>
 </div>
 {% endif %}
+
 
 {%endblock%}
