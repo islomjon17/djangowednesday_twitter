@@ -76,3 +76,9 @@ def login_user(request):
     
 def logout_user(request):
     return render(logout_user, 'logout_user.html', {})
+
+
+def logout_user(request):
+    logout(request)
+    messages.success(request, ("YOU HAVE BBEN LOGED OUT!!!"))
+    return (redirect('home'))
