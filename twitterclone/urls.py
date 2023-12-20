@@ -15,7 +15,7 @@ urlpatterns = [
 
     
     path('register_user', views.register_user, name='register'),
-    
+    path('update_user', views.update_user, name='update_user'),
     # path(),
     
     # path(),
