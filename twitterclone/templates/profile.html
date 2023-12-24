@@ -80,10 +80,13 @@
 				</button>
 			{% endif %}
 		</form>
-		<br/>
 
-		TEST
-		</div>
+		<br/>
+{% comment %} Check for the correct user {% endcomment %}
+		{% if request.user.id == profile.user.id %}
+		<a href="{% url 'update_user' %}" class="btn btn-secondary">Update profile</a>
+		{% endif %}	
+	</div>
 	</div>
 </div>
 

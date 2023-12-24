@@ -6,6 +6,7 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.forms import UserCreationForm
 from django import forms
 from django.contrib.auth import logout
+from django.contrib.auth.models import User
 
 
 
@@ -114,4 +115,18 @@ def register_user(request):
 
 
 def update_user(request):
-    return render(request, 'update_user.html', {})
+    if request.user.is_authenticated:
+        current_user = User.objects.get(id=request.user.id)
+        form = SignUpForm(request.POST or None, instance=current_user)
+        if form.is_valid():
+            form.save()
+            login(request, current_user)
+            messages.success(request, ("Your profile has benn updated!!!"))
+            return redirect('home')
+        
+        return render(request, 'update_user.html', {'form':form})
+    
+    else:
+        messages.success(request, ("You must to loged in to view that page!!!"))
+        return redirect('home')
+    
