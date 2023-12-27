@@ -17,7 +17,10 @@ class Meep(models.Model):
     
     body = models.CharField(max_length=200)
     created_at = models.DateTimeField(auto_now_add=True)
-    
+    profile_image = models.ImageField(null=True, blank=True, upload_to="images/")
+
+
+
     def __str__(self):
         return(
             f"{self.user}"
@@ -55,3 +58,5 @@ def create_profile(sender, instance, created, **kwargs):
         user_profile.save()
         
 post_save.connect(create_profile, sender=User)
+
+
