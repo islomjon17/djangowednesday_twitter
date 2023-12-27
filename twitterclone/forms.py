@@ -1,11 +1,20 @@
 from typing import Any
 from django import forms
 
-from .models import Meep
+from .models import Meep, Profile
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
 
+#Profile extract form
 
+class ProfilePictureForm(forms.ModelForm):
+    profile_image = forms.ImageField(label="Profile Picture")
+
+
+
+    class Meta:
+        model = Profile
+        fields = ("profile_image", )
 class MeepForm(forms.ModelForm):
     body = forms.CharField(
         widget=forms.widgets.Textarea(
