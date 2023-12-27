@@ -17,8 +17,7 @@ class Meep(models.Model):
     
     body = models.CharField(max_length=200)
     created_at = models.DateTimeField(auto_now_add=True)
-    profile_image = models.ImageField(null=True, blank=True, upload_to="images/")
-
+    
 
 
     def __str__(self):
@@ -39,7 +38,8 @@ class Profile(models.Model):
                                     related_name="followed_by", 
                                     symmetrical=False,
                                     blank=True)
-                                
+    profile_image = models.ImageField(null=True, blank=True, upload_to="images/")
+                              
     created_date = models.DateTimeField(User, auto_now=True)          
     def __str__(self):
         return self.user.username 
