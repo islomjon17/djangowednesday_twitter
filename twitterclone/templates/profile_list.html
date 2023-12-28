@@ -12,7 +12,24 @@
     <div class="card mb-3" style="max-width: 540px;">
         <div class="row g-0">
           <div class="col-md-4">
-            <img src="{{ profiles.profile_image.url }}" class="img-fluid rounded-start" alt="Profile image">
+             {% if profiles.profile_image %}
+
+              <img src="{{ profiles.profile_image.url }}" width="200" height="200" class="img-fluid rounded-start  " alt="{{ profiles.user.username }}">
+
+              {% else %}
+
+             <!-- Example usage in template -->
+              <img src="{% static 'twitterclone/images/profile_image_2.png' %}" width="200" height="200" class="img-fluid rounded-start" alt="Profile picture">
+
+
+
+             {% endif %} 
+
+
+            
+          
+          
+          
           </div>
           <div class="col-md-8">
             <div class="card-body">

@@ -1,6 +1,6 @@
 {% extends 'base.html' %}
 
-
+{% load static %}
 {% block content %}
 
 <div class="container text-center">
@@ -15,17 +15,36 @@
 {% for meeps in meeps %}
  
 <div class="alert alert-info" role="alert">
+  <div class="container">
+    <div class="row">
+        <div class="col-2">
+      
+            {% if meeps.user.profile_image %}
 
-    {{ meeps.body }} </br>
-    <small class="text-muted">
-      ({{ meeps.created_at }}) By
+              <img src="{{ meeps.user.profile_image.url }}" width="200" height="200" class="img-fluid rounded-start  " alt="{{ profiles.user.username }}">
 
-      @{{ meeps.user.username }}
-    </small>
-    <br/> <br/><br/>
-  </div>
+              {% else %}
 
- 
+             <!-- Example usage in template -->
+              <img src="{% static 'twitterclone/images/profile_image_2.png' %}" width="200" height="200" class="img-fluid rounded-start" alt="Profile picture">
+             {% endif %} 
+
+        </div>
+
+             <div class="col-11">
+
+            {{ meeps.body }} </br>
+            <small class="text-muted">
+            ({{ meeps.created_at }}) By
+
+            @{{ meeps.user.username }}
+          </small>
+          <br/> <br/><br/>
+        </div>
+
+      </div>
+     </div>
+  </div>   
 {% endfor %}
 
 
