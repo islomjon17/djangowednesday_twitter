@@ -138,34 +138,40 @@ def update_user(request):
     
 
 
+# def update_likes(request, pk):
+#     if request.user.is_authenticated:
+#         meep = get_object_or_404(Meep, id=pk)
+#         if meep.likes.filter(id=request.user.id):
+#             meep.likes.remove(request.user)
+#         else:
+#             meep.likes.add(request.user)
+
+
+#         return redirect('home')
+
+
+
+
+
+
+#     else:
+#         messages.success(request, ("You must to loged in to view that page!!!"))
+#         return redirect('home')
+
+
+
+
 def update_likes(request, pk):
-    if request.method == 'POST' and request.is_ajax():
-        new_data = request.POST.get('new_data')
-        if request.user.is_authenticated:
-            meep = get_object_or_404(Meep, id=pk)
-            if meep.likes.filter(id=request.user.id):
-                meep.likes.remove(request.user)
-            else:
-                meep.likes.add(request.user)
-
-
-            return redirect('home')
-
-    #         return JsonResponse({'message': 'Data updated successfully'})
-    # return JsonResponse({'message': 'Invalid request'})
-
-
-
-
-
+    if request.method == 'POST' and request.user.is_authenticated:
+        meep = get_object_or_404(Meep, id=pk)
+        if meep.likes.filter(id=request.user.id):
+            meep.likes.remove(request.user)
         else:
-            messages.success(request, ("You must to loged in to view that page!!!"))
-            return redirect('home')
+            meep.likes.add(request.user)
 
-
-
-
-
+        # Return the updated number of likes
+        return JsonResponse({'likes': meep.number_of_likes()}, status=200)
+    return JsonResponse({}, status=400)
 
 
 
