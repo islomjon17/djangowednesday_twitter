@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib import messages
 from .models import *
 from .forms import MeepForm, SignUpForm, ProfilePictureForm
@@ -8,7 +8,8 @@ from django import forms
 from django.contrib.auth import logout
 from django.contrib.auth.models import User
 
-
+from django.http import JsonResponse
+from django.views.decorators.csrf import csrf_exempt
 
 
 # Create your views here.
@@ -135,3 +136,51 @@ def update_user(request):
         messages.success(request, ("You must to loged in to view that page!!!"))
         return redirect('home')
     
+
+
+def update_likes(request, pk):
+    if request.method == 'POST' and request.is_ajax():
+        new_data = request.POST.get('new_data')
+        if request.user.is_authenticated:
+            meep = get_object_or_404(Meep, id=pk)
+            if meep.likes.filter(id=request.user.id):
+                meep.likes.remove(request.user)
+            else:
+                meep.likes.add(request.user)
+
+
+            return redirect('home')
+
+    #         return JsonResponse({'message': 'Data updated successfully'})
+    # return JsonResponse({'message': 'Invalid request'})
+
+
+
+
+
+        else:
+            messages.success(request, ("You must to loged in to view that page!!!"))
+            return redirect('home')
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
