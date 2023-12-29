@@ -151,8 +151,15 @@ def update_likes(request, pk):
     return JsonResponse({}, status=400)
 
 
+def post_share(request, pk):
 
+    meeps = get_object_or_404(Meep, id=pk)
 
+    if meeps: 
+        return render(request, "show_meep.html", {'meeps':meeps, })
+    else:
+        messages.success(request, ("This post does not exist!!!"))
+        return redirect('home')
 
 
 

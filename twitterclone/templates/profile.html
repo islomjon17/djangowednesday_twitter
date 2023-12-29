@@ -57,7 +57,7 @@
 		  <button onclick="likePost({{ meeps.id }}, 'like-count-{{ meeps.id }}')" id="like-button-{{ meeps.id }}">
 		    {% if meeps.is_liked_by_current_user %} ❤️{% else %}🤍{% endif %}
 		  </button>
-  
+  <a href="{% url 'post_share' meeps.id %}"><i class="fa-solid fa-share" style="color:gray;"> Share </i></a> 
 			  <script>
 			    function likePost(meepId, likeCountId) {
 			      var xhr = new XMLHttpRequest();
