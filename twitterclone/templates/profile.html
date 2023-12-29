@@ -48,6 +48,45 @@
       				({{ meeps.created_at }}) By
 
      				 @{{ meeps.user.username }}
+     			<!-- JAVA SCRIPT SECTION FOR CALCULATE LIKES -->
+
+<!-- Use a unique ID for each like count -->
+  <span id="like-count-{{ meeps.id }}">{{ meeps.number_of_likes }}</span> Likes
+  
+  <!-- Create a like button -->
+		  <button onclick="likePost({{ meeps.id }}, 'like-count-{{ meeps.id }}')" id="like-button-{{ meeps.id }}">
+		    {% if meeps.is_liked_by_current_user %}Unlike{% else %}Like{% endif %}
+		  </button>
+  
+			  <script>
+			    function likePost(meepId, likeCountId) {
+			      var xhr = new XMLHttpRequest();
+			      xhr.onreadystatechange = function() {
+			        if (xhr.readyState === XMLHttpRequest.DONE) {
+			          if (xhr.status === 200) {
+			            // Parse the JSON response
+			            var response = JSON.parse(xhr.responseText);
+			            // Update the respective like count on success
+			            document.getElementById(likeCountId).innerText = response.likes;
+			            // Toggle the like/unlike text on the button
+			            var likeButton = document.getElementById('like-button-' + meepId);
+			            if (response.liked) {
+			              likeButton.innerText = 'Unlike';
+			            } else {
+			              likeButton.innerText = 'Like';
+			            }
+			          } else {
+			            console.error('Error:', xhr.status);
+			          }
+			        }
+			      };
+			      xhr.open("POST", "/update_likes/" + meepId + "/", true);
+			      xhr.setRequestHeader("X-CSRFToken", "{{ csrf_token }}");
+			      xhr.send();
+			    }
+			  </script>
+<!-- END OF JAVA SCRIPT SECTION FOR CALCULATE LIKES -->
+
     			</small>
 						
 					</div><br/> <br/>

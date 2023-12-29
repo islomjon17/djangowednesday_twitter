@@ -138,29 +138,6 @@ def update_user(request):
     
 
 
-# def update_likes(request, pk):
-#     if request.user.is_authenticated:
-#         meep = get_object_or_404(Meep, id=pk)
-#         if meep.likes.filter(id=request.user.id):
-#             meep.likes.remove(request.user)
-#         else:
-#             meep.likes.add(request.user)
-
-
-#         return redirect('home')
-
-
-
-
-
-
-#     else:
-#         messages.success(request, ("You must to loged in to view that page!!!"))
-#         return redirect('home')
-
-
-
-
 def update_likes(request, pk):
     if request.method == 'POST' and request.user.is_authenticated:
         meep = get_object_or_404(Meep, id=pk)
