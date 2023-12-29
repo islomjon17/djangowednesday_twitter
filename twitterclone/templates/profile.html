@@ -55,7 +55,7 @@
   
   <!-- Create a like button -->
 		  <button onclick="likePost({{ meeps.id }}, 'like-count-{{ meeps.id }}')" id="like-button-{{ meeps.id }}">
-		    {% if meeps.is_liked_by_current_user %}Unlike{% else %}Like{% endif %}
+		    {% if meeps.is_liked_by_current_user %} ❤️{% else %}🤍{% endif %}
 		  </button>
   
 			  <script>
@@ -71,9 +71,9 @@
 			            // Toggle the like/unlike text on the button
 			            var likeButton = document.getElementById('like-button-' + meepId);
 			            if (response.liked) {
-			              likeButton.innerText = 'Unlike';
+			              likeButton.innerText = ' 🤍';
 			            } else {
-			              likeButton.innerText = 'Like';
+			              likeButton.innerText = '❤️';
 			            }
 			          } else {
 			            console.error('Error:', xhr.status);
