@@ -14,7 +14,7 @@ from django.views.decorators.csrf import csrf_exempt
 
 # Create your views here.
 
-
+#   home
 def home(request):
     if request.user.is_authenticated:
         form = MeepForm(request.POST or None)
@@ -32,7 +32,7 @@ def home(request):
     else:
         meeps = Meep.objects.all().order_by("-created_at")
         return render(request, 'home.html', {'meeps':meeps})
-
+#   profile_list
 def profile_list(request): 
     if request.user.is_authenticated:
         profiles = Profile.objects.exclude(user=request.user)   
@@ -43,7 +43,7 @@ def profile_list(request):
         return render(request, 'home.html', {})
 
 
-
+#   profile
 def profile(request, pk):
     if request.user.is_authenticated:
         profile = Profile.objects.get(user_id=pk)
@@ -70,7 +70,7 @@ def profile(request, pk):
         return redirect(home)
     
     
-    
+#       login_user
 def login_user(request):
     if request.method == "POST":
         username = request.POST['username']
@@ -88,14 +88,14 @@ def login_user(request):
 
 
 
-    
+#      logout_user
 def logout_user(request):
     logout(request)
     messages.success(request, ("You have been logged out!!!"))
     return redirect('home')
 
 
-
+#   register_user
 def register_user(request):
     form = SignUpForm()
     if request.method == "POST":
@@ -115,7 +115,7 @@ def register_user(request):
     return render(request, 'register.html', {'form':form})
 
 
-
+#   update_user
 def update_user(request):
     if request.user.is_authenticated:
         current_user = User.objects.get(id=request.user.id)
@@ -137,7 +137,7 @@ def update_user(request):
         return redirect('home')
     
 
-
+#  update_likes
 def update_likes(request, pk):
     if request.method == 'POST' and request.user.is_authenticated:
         meep = get_object_or_404(Meep, id=pk)
@@ -149,8 +149,7 @@ def update_likes(request, pk):
         # Return the updated number of likes
         return JsonResponse({'likes': meep.number_of_likes()}, status=200)
     return JsonResponse({}, status=400)
-
-
+#  
 def post_share(request, pk):
 
     meeps = get_object_or_404(Meep, id=pk)
